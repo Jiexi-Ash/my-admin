@@ -9,8 +9,8 @@ function Navbar() {
     <div className="w-full h-[70px] bg-[#15305d] px-10 flex items-center justify-between">
       <h1 className="text-white text-xl">MyAdmin</h1>
       <div className="flex space-x-2 items-center">
-        <Link className="text-white text-sm" href="/graphs">
-          Graphs
+        <Link className="text-white text-sm hover:underline" href="/myreport">
+          myReport
         </Link>
         <Separator
           orientation="vertical"
