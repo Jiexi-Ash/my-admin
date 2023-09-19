@@ -19,6 +19,12 @@ import {
 
 import { School2Icon } from "lucide-react";
 import { Separator } from "@radix-ui/react-separator";
+import DataTable from "@/components/report/DataTable";
+import { columns } from "@/components/report/columns";
+
+// TODO1: Card must link to myreport/[campus]
+// TODO2: Add table to myreport/[campus]
+// TODO3: Make Table filterable by campus, assessment, grading status
 
 function MyReportPage() {
   const bedFordCampus = reportData.filter(
@@ -58,9 +64,8 @@ function MyReportPage() {
     (item) => item.campus === "Mbombela (Nelspruit) Campus"
   );
 
-  console.log(PretoriaCampus);
   return (
-    <div className="w-full mt-10 px-36 flex flex-col">
+    <div className="w-full my-10 px-36 flex flex-col space-y-10 min-h-screen">
       <Accordion type="single" collapsible className="w-full">
         <AccordionItem className="border-b-0" value="overview">
           <AccordionTrigger className="bg-[#15305d] border-gray-200 border px-4 rounded-lg text-white">
@@ -96,6 +101,9 @@ function MyReportPage() {
           </AccordionContent>
         </AccordionItem>
       </Accordion>
+      <div className="">
+        <DataTable columns={columns} data={reportData} />
+      </div>
     </div>
   );
 }
@@ -125,13 +133,15 @@ const StatCard = ({ title, campusData }: StatCardProps) => {
             </CardDescription>
           </div>
         </div>
-        <CardContent className="flex items-center h-full justify-between w-full py-1 space-x-3">
-          <span className="text-3xl text-green-500">{totalGraded}</span>
-          <Separator
-            orientation="vertical"
-            className="bg-white text-red-500 h-8 w-[2px]"
-          />
-          <span className="text-3xl text-red-500">{notGraded.length}</span>
+        <CardContent className="flex items-center h-full justify-between w-full py-1">
+          <div className="w-[150px] flex justify-between">
+            <span className="text-3xl text-green-500">{totalGraded}</span>
+            <Separator
+              orientation="vertical"
+              className="bg-white text-red-500 h-8 w-[2px]"
+            />
+            <span className="text-3xl text-red-500">{notGraded.length}</span>
+          </div>
         </CardContent>
       </CardHeader>
     </Card>
