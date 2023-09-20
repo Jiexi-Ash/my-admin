@@ -121,7 +121,7 @@ export const columns: ColumnDef<Report>[] = [
       );
     },
     cell: ({ row }) => {
-      const gradingStatus = row.getValue("grading_status");
+      const gradingStatus = row.getValue("grading_status") as string;
 
       return (
         <div
