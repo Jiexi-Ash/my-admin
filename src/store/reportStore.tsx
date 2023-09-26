@@ -18,7 +18,7 @@ const useReportStore = create<ReportStore>((set) => ({
     );
     set({ campusData, selectedCampus: campus });
   },
-  getSelectedCampusData: (campus: string) => {
+  getSelectedCampusData: (campus: string = "Bedfordview Campus") => {
     const reportData = require("@/report.json");
     const campusData = reportData.filter(
       (item: Report) => item.campus === campus
