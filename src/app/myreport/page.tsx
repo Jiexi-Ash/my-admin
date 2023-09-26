@@ -11,15 +11,14 @@ import useReportStore from "@/store/reportStore";
 import FileUpload from "@/components/report/FileUpload";
 
 function MyReportPage() {
-  const { getSelectedCampusData } = useReportStore();
-  const data = getSelectedCampusData();
+  const { campusData } = useReportStore();
 
   return (
     <div className="w-full my-10 px-36 flex flex-col space-y-10 min-h-screen">
       <FileUpload />
       <CampusList />
       <div className="">
-        <DataTable columns={columns} data={data} />
+        <DataTable columns={columns} data={campusData} />
       </div>
     </div>
   );
