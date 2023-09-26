@@ -20,7 +20,7 @@ function FileUpload() {
         if (e.target?.result) {
           const data = JSON.parse(e.target.result as string);
           const campusNamesS = [
-            ...new Set(data.map((item) => item.campus)),
+            ...new Set(data.map((item: any) => item.campus)),
           ].filter((item) => item !== "") as string[];
           setCampusNames(campusNamesS);
           setInitialData(data);
