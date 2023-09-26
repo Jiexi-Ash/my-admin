@@ -14,7 +14,6 @@ function FileUpload() {
   };
 
   const handleOnChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    // read the json file
     if (e.target.files) {
       const reader = new FileReader();
       reader.onload = async (e) => {
@@ -27,8 +26,10 @@ function FileUpload() {
           setInitialData(data);
         }
       };
-      reader.readAsText(e.target.files[0]);
+      reader.readAsText(e.target.files[0] as Blob);
     }
+
+    e.target.value = "";
   };
   return (
     <>
