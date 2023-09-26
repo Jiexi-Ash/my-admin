@@ -12,11 +12,6 @@ import useReportStore from "@/store/reportStore";
 
 function CampusList() {
   const { getSelectedCampusData, campusNames: campus } = useReportStore();
-  const data = getSelectedCampusData();
-  console.log(data);
-  const campusNames = [...new Set(data.map((item) => item.campus))].filter(
-    (item) => item !== ""
-  ) as string[];
 
   return (
     <Accordion type="single" collapsible className="w-full">
@@ -27,11 +22,7 @@ function CampusList() {
         <AccordionContent className="">
           <div className="grid grid-cols-6">
             {campus.map((campusName: string) => (
-              <CampusCard
-                key={campusName}
-                campusData={data}
-                title={campusName}
-              />
+              <CampusCard key={campusName} title={campusName} />
             ))}
           </div>
         </AccordionContent>
