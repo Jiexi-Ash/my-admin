@@ -18,6 +18,10 @@ function MyReportPage() {
     setSelectedCampus(campusName);
   };
 
+  useEffect(() => {
+    getSelectedCampusData();
+  }, [selectedCampus]);
+
   return (
     <div className="w-full my-10 px-36 flex flex-col space-y-10 min-h-screen">
       <CampusList
