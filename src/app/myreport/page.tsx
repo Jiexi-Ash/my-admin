@@ -7,21 +7,16 @@ import DataTable from "@/components/report/DataTable";
 import { columns } from "@/components/report/columns";
 import CampusList from "@/components/report/CampusList";
 import type { Report } from "@/types";
+import useReportStore from "@/store/reportStore";
 
 function MyReportPage() {
+  const { getSelectedCampusData } = useReportStore();
   const [selectedCampus, setSelectedCampus] = useState("Bedfordview Campus");
-  const [selectedCampusData, setSelectedCampusData] = useState<Report[]>([]);
+  const data = getSelectedCampusData();
 
   const handleSelectedCampus = (campusName: string) => {
     setSelectedCampus(campusName);
   };
-
-  useEffect(() => {
-    const campusData = reportData.filter(
-      (item) => item.campus === selectedCampus
-    );
-    setSelectedCampusData(campusData);
-  }, [selectedCampus]);
 
   return (
     <div className="w-full my-10 px-36 flex flex-col space-y-10 min-h-screen">
@@ -30,7 +25,7 @@ function MyReportPage() {
         setSelectedCampus={setSelectedCampus}
       />
       <div className="">
-        <DataTable columns={columns} data={selectedCampusData} />
+        <DataTable columns={columns} data={data} />
       </div>
     </div>
   );

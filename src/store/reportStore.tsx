@@ -6,7 +6,7 @@ interface ReportStore {
   campusData: Report[];
   selectedCampus: string;
   setSelectedCampusData: (campus: string) => void;
-  getSelectedCampusData: (campus: string) => Report[];
+  getSelectedCampusData: (campus?: string) => Report[];
 }
 
 const useReportStore = create<ReportStore>((set) => ({
@@ -18,7 +18,7 @@ const useReportStore = create<ReportStore>((set) => ({
     );
     set({ campusData, selectedCampus: campus });
   },
-  getSelectedCampusData: (campus: string = "Bedfordview Campus") => {
+  getSelectedCampusData: (campus: string = "Midrand Campus") => {
     const reportData = require("@/report.json");
     const campusData = reportData.filter(
       (item: Report) => item.campus === campus
@@ -26,3 +26,5 @@ const useReportStore = create<ReportStore>((set) => ({
     return campusData;
   },
 }));
+
+export default useReportStore;
