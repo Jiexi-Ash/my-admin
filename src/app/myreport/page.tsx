@@ -9,7 +9,7 @@ import CampusList from "@/components/report/CampusList";
 import type { Report } from "@/types";
 
 function MyReportPage() {
-  const [selectedCampus, setSelectedCampus] = useState("Midrand Campus");
+  const [selectedCampus, setSelectedCampus] = useState("Bedfordview Campus");
   const [selectedCampusData, setSelectedCampusData] = useState<Report[]>([]);
 
   const handleSelectedCampus = (campusName: string) => {

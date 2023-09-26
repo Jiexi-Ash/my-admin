@@ -1,21 +1,4 @@
 "use client";
-import React from "react";
-
-import reportData from "@/report.json";
-
-interface Props {
-  selectedCampus: string;
-  setSelectedCampus: React.Dispatch<React.SetStateAction<string>>;
-  campusName: string;
-}
-
-function CampusCard({ campusName, setSelectedCampus, selectedCampus }: Props) {
-  const campusData = reportData.filter((item) => item.campus === campusName);
-  return <StatCard title="CPT - Tyger Valley" campusData={campusData} />;
-}
-
-export default CampusCard;
-
 import {
   Card,
   CardContent,
@@ -33,7 +16,7 @@ interface StatCardProps {
   campusData: any;
 }
 
-function StatCard({ title, campusData }: StatCardProps) {
+function CampusCard({ title, campusData }: StatCardProps) {
   const notGraded = campusData.filter(
     (item: Report) => item.grading_status === "Not Graded"
   );
@@ -67,3 +50,5 @@ function StatCard({ title, campusData }: StatCardProps) {
     </Card>
   );
 }
+
+export default CampusCard;

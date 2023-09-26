@@ -17,22 +17,23 @@ interface CampusListProps {
 function CampusList({ selectedCampus, setSelectedCampus }: CampusListProps) {
   const campusNamesS = [
     ...new Set(reportData.map((item) => item.campus)),
-  ].filter((item) => item !== "");
+  ].filter((item) => item !== "") as string[];
 
   return (
     <Accordion type="single" collapsible className="w-full">
       <AccordionItem className="border-b-0" value="overview">
         <AccordionTrigger className="bg-[#15305d] border-gray-200 border px-4 rounded-lg text-white">
-          Grading Overview
+          Grading Overviewwwwwwwww
         </AccordionTrigger>
         <AccordionContent className="">
           <div className="grid grid-cols-6">
-            {campusNamesS.map((campusName) => (
+            {campusNamesS.map((campusName: string) => (
               <CampusCard
                 key={campusName}
-                selectedCampus={selectedCampus}
-                campusName={campusName}
-                setSelectedCampus={setSelectedCampus}
+                campusData={reportData.filter(
+                  (item) => item.campus === campusName
+                )}
+                title={campusName}
               />
             ))}
           </div>
