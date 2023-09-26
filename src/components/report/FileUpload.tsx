@@ -4,7 +4,7 @@ import { Button } from "@/components/ui/button";
 import useReportStore from "@/store/reportStore";
 
 function FileUpload() {
-  const { setInitialData } = useReportStore();
+  const { setInitialData, setCampusNames } = useReportStore();
   const fileInputRef = React.useRef<HTMLInputElement>(null);
   const [file, setFile] = React.useState<File | null>(null);
 
@@ -20,6 +20,10 @@ function FileUpload() {
       reader.onload = async (e) => {
         if (e.target?.result) {
           const data = JSON.parse(e.target.result as string);
+          const campusNamesS = [
+            ...new Set(data.map((item) => item.campus)),
+          ].filter((item) => item !== "") as string[];
+          setCampusNames(campusNamesS);
           setInitialData(data);
         }
       };
