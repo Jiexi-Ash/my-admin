@@ -18,7 +18,7 @@ function CampusList() {
     <Accordion type="single" collapsible className="w-full">
       <AccordionItem className="border-b-0" value="overview">
         <AccordionTrigger className="bg-[#15305d] border-gray-200 border px-4 rounded-lg text-white">
-          Grading Overviewwwwwwwww
+          Grading Overview
         </AccordionTrigger>
         <AccordionContent className="">
           <div className="grid grid-cols-6">
