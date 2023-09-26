@@ -6,6 +6,7 @@ interface ReportStore {
   campusData: Report[];
   selectedCampus: string | null;
   campusNames: string[];
+  initialData: Report[];
   setSelectedCampusData: (campus: string) => void;
   setCampusNames: (campusNames: string[]) => void;
   getSelectedCampusData: () => Report[];
@@ -13,6 +14,7 @@ interface ReportStore {
 }
 
 const useReportStore = create<ReportStore>((set, get) => ({
+  initialData: [],
   campusData: [],
   campusNames: [],
   selectedCampus: null,
@@ -31,7 +33,7 @@ const useReportStore = create<ReportStore>((set, get) => ({
   },
 
   setInitialData: (data) => {
-    set({ campusData: data });
+    set({ initialData: data });
   },
 }));
 
