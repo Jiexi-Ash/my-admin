@@ -54,14 +54,6 @@ function DataTable<TData, TValue>({
     <div>
       <div className="flex items-center py-4 space-x-4">
         <Input
-          placeholder="Filter campus..."
-          value={(table.getColumn("campus")?.getFilterValue() as string) ?? ""}
-          onChange={(event) =>
-            table.getColumn("campus")?.setFilterValue(event.target.value)
-          }
-          className="max-w-sm"
-        />
-        <Input
           placeholder="Filter by student number..."
           value={
             (table.getColumn("student_number")?.getFilterValue() as string) ??
