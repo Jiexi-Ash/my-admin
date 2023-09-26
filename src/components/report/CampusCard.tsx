@@ -12,25 +12,17 @@ import { Separator } from "../ui/separator";
 import type { Report } from "@/types";
 import useReportStore from "@/store/reportStore";
 
-interface StatCardProps {
+interface CampusCardProps {
   title: string;
 }
 
-function CampusCard({ title }: StatCardProps) {
-  const { selectedCampus, setSelectedCampusData, getSelectedCampusData } =
+function CampusCard({ title }: CampusCardProps) {
+  const { selectedCampus, setSelectedCampusData, initialData } =
     useReportStore();
-  const campusData = getSelectedCampusData(title);
-  const notGraded = campusData.filter(
-    (item: Report) => item.grading_status === "Not Graded"
-  );
-  const graded = campusData.filter(
-    (item: Report) => item.grading_status === "Graded"
-  );
-
   const handleSelectedCampus = () => {
     setSelectedCampusData(title);
   };
-  const totalGraded = graded.length;
+
   return (
     <Card
       className={`flex  border-solid border-2  cursor-pointer ${
@@ -51,14 +43,7 @@ function CampusCard({ title }: StatCardProps) {
           </div>
         </div>
         <CardContent className="flex items-center h-full justify-between w-full py-1">
-          <div className="w-[150px] flex justify-between">
-            <span className="text-3xl text-green-500">{totalGraded}</span>
-            <Separator
-              orientation="vertical"
-              className="bg-white text-red-500 h-8 w-[2px]"
-            />
-            <span className="text-3xl text-red-500">{notGraded.length}</span>
-          </div>
+          <StatCard title={title} status="Graded" data={initialData} />
         </CardContent>
       </CardHeader>
     </Card>
@@ -66,3 +51,29 @@ function CampusCard({ title }: StatCardProps) {
 }
 
 export default CampusCard;
+
+interface StatCardProps {
+  title: string;
+  status: string;
+  data: Report[];
+}
+
+export const StatCard = ({ title, status, data }: StatCardProps) => {
+  const campusData = data.filter((item: Report) => item.campus === title);
+  const notGraded = campusData.filter(
+    (item: Report) => item.grading_status === "Not Graded"
+  );
+  const graded = campusData.filter(
+    (item: Report) => item.grading_status === "Graded"
+  );
+  return (
+    <div className="w-[150px] flex justify-between">
+      <span className="text-3xl text-green-500">{graded.length}</span>
+      <Separator
+        orientation="vertical"
+        className="bg-white text-red-500 h-8 w-[2px]"
+      />
+      <span className="text-3xl text-red-500">{notGraded.length}</span>
+    </div>
+  );
+};
