@@ -22,7 +22,7 @@ const useReportStore = create<ReportStore>((set, get) => ({
     const campusData = reportData.filter(
       (item: Report) => item.campus === campus
     );
-    set({ selectedCampus: campus });
+    set({ campusData, selectedCampus: campus });
   },
   setCampusNames: (campusNames: string[]) => {
     set({ campusNames });
