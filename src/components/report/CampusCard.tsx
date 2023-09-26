@@ -27,13 +27,16 @@ function CampusCard({ title, campusData }: StatCardProps) {
   );
 
   const handleSelectedCampus = () => {
-    console.log("selectedCampus", title);
     setSelectedCampusData(title);
   };
   const totalGraded = graded.length;
   return (
     <Card
-      className={`flex bg-[#15305d] border-solid border-2 border-gray-200`}
+      className={`flex  border-solid border-2  cursor-pointer ${
+        selectedCampus === title
+          ? "bg-[#30E3DF] border-white"
+          : "bg-[#15305d] border-gray-200"
+      }`}
       onClick={handleSelectedCampus}
     >
       <CardHeader className="">
