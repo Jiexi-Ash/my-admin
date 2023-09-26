@@ -10,6 +10,7 @@ import {
 import { School2Icon } from "lucide-react";
 import { Separator } from "../ui/separator";
 import type { Report } from "@/types";
+import useReportStore from "@/store/reportStore";
 
 interface StatCardProps {
   title: string;
@@ -17,15 +18,24 @@ interface StatCardProps {
 }
 
 function CampusCard({ title, campusData }: StatCardProps) {
+  const { selectedCampus, setSelectedCampusData } = useReportStore();
   const notGraded = campusData.filter(
     (item: Report) => item.grading_status === "Not Graded"
   );
   const graded = campusData.filter(
     (item: Report) => item.grading_status === "Graded"
   );
+
+  const handleSelectedCampus = () => {
+    console.log("selectedCampus", title);
+    setSelectedCampusData(title);
+  };
   const totalGraded = graded.length;
   return (
-    <Card className="flex bg-[#15305d] border-solid border-2 border-gray-200">
+    <Card
+      className={`flex bg-[#15305d] border-solid border-2 border-gray-200`}
+      onClick={handleSelectedCampus}
+    >
       <CardHeader className="">
         <div className="flex space-x-2 items-center">
           <School2Icon className="w-6 h-6 text-white" fill="black" />
