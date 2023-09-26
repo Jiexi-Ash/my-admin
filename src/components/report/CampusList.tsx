@@ -23,13 +23,7 @@ function CampusList() {
         <AccordionContent className="">
           <div className="grid grid-cols-6">
             {campusNamesS.map((campusName: string) => (
-              <CampusCard
-                key={campusName}
-                campusData={reportData.filter(
-                  (item) => item.campus === campusName
-                )}
-                title={campusName}
-              />
+              <CampusCard key={campusName} title={campusName} />
             ))}
           </div>
         </AccordionContent>

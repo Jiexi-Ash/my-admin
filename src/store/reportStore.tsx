@@ -7,10 +7,11 @@ interface ReportStore {
   selectedCampus: string;
   setSelectedCampusData: (campus: string) => void;
   getSelectedCampusData: () => Report[];
+  setInitialData: (data: Report[]) => void;
 }
 
 const useReportStore = create<ReportStore>((set, get) => ({
-  campusData: reportData,
+  campusData: [],
   selectedCampus: "Bedfordview Campus",
   setSelectedCampusData: (campus: string) => {
     const campusData = reportData.filter(
@@ -21,6 +22,10 @@ const useReportStore = create<ReportStore>((set, get) => ({
   getSelectedCampusData: () => {
     const { campusData, selectedCampus } = get();
     return campusData.filter((item: Report) => item.campus === selectedCampus);
+  },
+
+  setInitialData: (data) => {
+    set({ campusData: data });
   },
 }));
 
