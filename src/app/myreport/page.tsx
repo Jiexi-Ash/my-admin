@@ -11,23 +11,11 @@ import useReportStore from "@/store/reportStore";
 
 function MyReportPage() {
   const { getSelectedCampusData } = useReportStore();
-  const [selectedCampus, setSelectedCampus] = useState("Bedfordview Campus");
   const data = getSelectedCampusData();
-
-  const handleSelectedCampus = (campusName: string) => {
-    setSelectedCampus(campusName);
-  };
-
-  useEffect(() => {
-    getSelectedCampusData();
-  }, [selectedCampus]);
 
   return (
     <div className="w-full my-10 px-36 flex flex-col space-y-10 min-h-screen">
-      <CampusList
-        selectedCampus={selectedCampus}
-        setSelectedCampus={setSelectedCampus}
-      />
+      <CampusList />
       <div className="">
         <DataTable columns={columns} data={data} />
       </div>
