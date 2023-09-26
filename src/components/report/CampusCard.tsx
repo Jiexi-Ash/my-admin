@@ -14,12 +14,12 @@ import useReportStore from "@/store/reportStore";
 
 interface StatCardProps {
   title: string;
+  campusData: Report[];
 }
 
-function CampusCard({ title }: StatCardProps) {
+function CampusCard({ title, campusData }: StatCardProps) {
   const { selectedCampus, setSelectedCampusData, getSelectedCampusData } =
     useReportStore();
-  const campusData = getSelectedCampusData();
   const notGraded = campusData.filter(
     (item: Report) => item.grading_status === "Not Graded"
   );

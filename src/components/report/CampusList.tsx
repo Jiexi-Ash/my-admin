@@ -8,11 +8,15 @@ import {
   AccordionTrigger,
 } from "@/components/ui/accordion";
 import CampusCard from "./CampusCard";
+import useReportStore from "@/store/reportStore";
 
 function CampusList() {
-  const campusNamesS = [
-    ...new Set(reportData.map((item) => item.campus)),
-  ].filter((item) => item !== "") as string[];
+  const { getSelectedCampusData } = useReportStore();
+  const data = getSelectedCampusData();
+  console.log(data);
+  const campusNamesS = [...new Set(data.map((item) => item.campus))].filter(
+    (item) => item !== ""
+  ) as string[];
 
   return (
     <Accordion type="single" collapsible className="w-full">
@@ -23,7 +27,11 @@ function CampusList() {
         <AccordionContent className="">
           <div className="grid grid-cols-6">
             {campusNamesS.map((campusName: string) => (
-              <CampusCard key={campusName} title={campusName} />
+              <CampusCard
+                key={campusName}
+                campusData={data}
+                title={campusName}
+              />
             ))}
           </div>
         </AccordionContent>
