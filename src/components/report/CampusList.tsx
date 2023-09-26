@@ -9,12 +9,7 @@ import {
 } from "@/components/ui/accordion";
 import CampusCard from "./CampusCard";
 
-interface CampusListProps {
-  selectedCampus: string;
-  setSelectedCampus: React.Dispatch<React.SetStateAction<string>>;
-}
-
-function CampusList({ selectedCampus, setSelectedCampus }: CampusListProps) {
+function CampusList() {
   const campusNamesS = [
     ...new Set(reportData.map((item) => item.campus)),
   ].filter((item) => item !== "") as string[];
