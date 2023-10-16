@@ -8,7 +8,7 @@ import { initTRPC } from "@trpc/server";
 const t = initTRPC.create();
 const middleware = t.middleware;
 
-const isAuth = t.middleware(async (opts) => {
+const isAuth = middleware(async (opts) => {
   const supabase = await supabaseServerComponentClient();
   const {
     data: { user },
@@ -32,4 +32,4 @@ const isAuth = t.middleware(async (opts) => {
  */
 export const router = t.router;
 export const publicProcedure = t.procedure;
-export const protectedProcedure = t.procedure;
+export const protectedProcedure = t.procedure.use(isAuth);

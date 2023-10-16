@@ -36,6 +36,8 @@ import {
   CommandItem,
 } from "../ui/command";
 import { CommandGroup } from "cmdk";
+import { trpc } from "@/app/_trpc/client";
+import Loader from "../Loader";
 
 const campus = [
   { label: "NTL", value: "National" },
@@ -84,7 +86,32 @@ function AddLecture() {
     },
   });
 
-  const onSubmit = (data: z.infer<typeof forSchema>) => {
+  const { mutate: createLecture, isLoading } = trpc.createLecture.useMutation({
+    onSuccess: (data) => {
+      console.log("success");
+      console.log(data);
+      form.reset();
+    },
+    onError: (error) => {
+      console.log("error");
+      console.log(error);
+    },
+  });
+
+  const onSubmit = async (data: z.infer<typeof forSchema>) => {
+    const { email, firstName, lastName, title, faculty, campus, position } =
+      data;
+
+    createLecture({
+      email,
+      firstName,
+      lastName,
+      title,
+      faculty,
+      campus,
+      position,
+    });
+
     console.log(data);
   };
 
@@ -284,10 +311,14 @@ function AddLecture() {
             />
 
             <div className="mt-10 flex space-x-4">
-              <Button type="submit" className="text-white bg-[#15305d]">
-                Submit
+              <Button
+                disabled={isLoading}
+                type="submit"
+                className="text-white bg-[#15305d]"
+              >
+                {isLoading ? <Loader /> : "Add Lecturer"}
               </Button>
-              <Button variant="outline" className="">
+              <Button disabled={isLoading} variant="outline" className="">
                 Cancel
               </Button>
             </div>
