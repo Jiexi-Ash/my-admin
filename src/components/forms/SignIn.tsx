@@ -19,7 +19,7 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 
-import { useForm } from "react-hook-form";
+import { set, useForm } from "react-hook-form";
 import * as z from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Input } from "@/components/ui/input";
@@ -27,6 +27,8 @@ import Link from "next/link";
 import { supabase } from "@/lib/supabaseClient";
 import { router } from "@/trpc/trpc";
 import { useRouter } from "next/navigation";
+import { useState } from "react";
+import Loader from "../Loader";
 
 const formSchema = z.object({
   email: z.string().email(),
@@ -34,6 +36,7 @@ const formSchema = z.object({
 });
 
 function SignIn() {
+  const [isLoading, setIsLoading] = useState(false);
   const router = useRouter();
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
@@ -44,6 +47,7 @@ function SignIn() {
   });
 
   const onSubmit = async (data: z.infer<typeof formSchema>) => {
+    setIsLoading(true);
     console.log(data);
     const { email, password } = data;
 
@@ -53,10 +57,12 @@ function SignIn() {
     });
 
     if (error) {
+      setIsLoading(false);
       console.log(error);
     }
 
-    router.push("/");
+    setIsLoading(false);
+    router.refresh();
   };
 
   return (
@@ -100,8 +106,12 @@ function SignIn() {
               >
                 {"don't have an account? sign up"}
               </Link>
-              <Button type="submit" className="w-full bg-[#15305d]">
-                Submit
+              <Button
+                disabled={isLoading}
+                type="submit"
+                className="w-full bg-[#15305d]"
+              >
+                {isLoading ? <Loader /> : "Submit"}
               </Button>
             </div>
           </form>

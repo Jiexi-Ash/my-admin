@@ -54,6 +54,9 @@ function SignUp() {
     const { error } = await supabase.auth.signUp({
       email,
       password,
+      options: {
+        emailRedirectTo: `${location.origin}/auth/callback`,
+      },
     });
 
     if (error) {
@@ -62,7 +65,7 @@ function SignUp() {
     }
 
     setIsLoading(false);
-    router.push("/");
+    router.refresh();
   };
 
   return (
