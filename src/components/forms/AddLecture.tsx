@@ -86,10 +86,13 @@ function AddLecture() {
     },
   });
 
+  const utils = trpc.useContext();
+
   const { mutate: createLecture, isLoading } = trpc.createLecture.useMutation({
     onSuccess: (data) => {
       console.log("success");
       console.log(data);
+      utils.getLectures.invalidate();
       form.reset();
     },
     onError: (error) => {

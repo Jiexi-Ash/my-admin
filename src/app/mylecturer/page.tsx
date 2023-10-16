@@ -1,5 +1,7 @@
 import AddLecture from "@/components/forms/AddLecture";
 import React from "react";
+import { trpc } from "../_trpc/client";
+import Lecturers from "@/components/myLecturer/Lecturers";
 
 function LecturerPage() {
   return (
@@ -8,6 +10,7 @@ function LecturerPage() {
         <div className="w-full flex justify-end">
           <AddLecture />
         </div>
+        <Lecturers />
       </div>
     </div>
   );
