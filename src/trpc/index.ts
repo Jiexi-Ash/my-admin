@@ -52,6 +52,26 @@ export const appRouter = router({
         });
       }
     }),
+
+  getLectures: protectedProcedure.query(async ({ ctx }) => {
+    const getLecturers = await prisma.lecturer.findMany();
+
+    const lecturers = getLecturers.map((lecturer) => {
+      return {
+        id: lecturer.id,
+        email: lecturer.email,
+        firstName: lecturer.firstName,
+        lastName: lecturer.lastName,
+        title: lecturer.title,
+        faculty: lecturer.faculty,
+        campus: lecturer.campus,
+        position: lecturer.position,
+        ttName: lecturer.ttName,
+      };
+    });
+
+    return lecturers;
+  }),
 });
 
 // Export type router type signature,
