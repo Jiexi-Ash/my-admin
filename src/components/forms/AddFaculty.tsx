@@ -45,7 +45,7 @@ function AddFaculty() {
     },
   });
 
-  const { mutate: createModule } = trpc.createModule.useMutation({
+  const { mutate: createFaculty, isLoading } = trpc.createFaculty.useMutation({
     onSuccess: (data) => {
       form.reset();
       console.log(data);
@@ -59,7 +59,8 @@ function AddFaculty() {
 
   const onSubmit = async (data: z.infer<typeof forSchema>) => {
     const { name, campus } = data;
-    console.log(data);
+
+    createFaculty({ name, campus });
   };
 
   return (
@@ -105,11 +106,14 @@ function AddFaculty() {
             />
 
             <div className="mt-10 flex space-x-4">
-              <Button type="submit" className="text-white bg-[#15305d]">
-                {/* {isLoading ? <Loader /> : "Add Lecturer"} */}
-                Add Module
+              <Button
+                disabled={isLoading}
+                type="submit"
+                className="text-white bg-[#15305d]"
+              >
+                {isLoading ? <Loader /> : "Add Lecturer"}
               </Button>
-              <Button variant="outline" className="">
+              <Button disabled={isLoading} variant="outline" className="">
                 Cancel
               </Button>
             </div>

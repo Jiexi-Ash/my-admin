@@ -111,6 +111,33 @@ export const appRouter = router({
       return data;
     }),
 
+  createFaculty: protectedProcedure
+    .input(
+      z.object({
+        name: z.string(),
+        campus: z.string(),
+      })
+    )
+    .mutation(async ({ ctx, input }) => {
+      const { name, campus } = input;
+
+      if (!name || !campus) {
+        throw new TRPCError({
+          code: "INTERNAL_SERVER_ERROR",
+          message: "Name and campus are required",
+        });
+      }
+
+      const data = await prisma.faculty.create({
+        data: {
+          name,
+          campus,
+        },
+      });
+
+      return data;
+    }),
+
   getLectures: protectedProcedure.query(async ({ ctx }) => {
     const getLecturers = await prisma.lecturer.findMany();
 

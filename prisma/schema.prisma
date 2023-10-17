@@ -49,6 +49,7 @@ model Module {
 model Faculty {
   id        String   @id @default(uuid())
   name      String
+  campus    String
   modules   Module[]
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
