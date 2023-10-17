@@ -53,6 +53,64 @@ export const appRouter = router({
       }
     }),
 
+  createModule: protectedProcedure
+    .input(
+      z.object({
+        name: z.string(),
+        code: z.string(),
+        contentWriter: z.string(),
+        copyEditor: z.string(),
+        faculty: z.string(),
+        lecturerHours: z.coerce.number(),
+        tutorialHours: z.coerce.number(),
+        practicalHours: z.coerce.number(),
+      })
+    )
+    .mutation(async ({ ctx, input }) => {
+      const {
+        name,
+        code,
+        contentWriter,
+        copyEditor,
+        faculty,
+        lecturerHours,
+        practicalHours,
+        tutorialHours,
+      } = input;
+
+      const getFaculty = await prisma.faculty.findFirst({
+        where: {
+          name: faculty,
+        },
+      });
+
+      if (!getFaculty) {
+        throw new TRPCError({
+          code: "INTERNAL_SERVER_ERROR",
+          message: "Faculty with that name does not exist",
+        });
+      }
+
+      const data = await prisma.module.create({
+        data: {
+          name,
+          code,
+          contentWriter,
+          copyEditor,
+          Faculty: {
+            connect: {
+              id: getFaculty.id,
+            },
+          },
+          lecturerHours,
+          practicalHours,
+          tutorialHours,
+        },
+      });
+
+      return data;
+    }),
+
   getLectures: protectedProcedure.query(async ({ ctx }) => {
     const getLecturers = await prisma.lecturer.findMany();
 

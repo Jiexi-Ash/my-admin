@@ -84,6 +84,16 @@ function AddModule() {
     },
   });
 
+  const { mutate: createModule } = trpc.createModule.useMutation({
+    onSuccess: (data) => {
+      form.reset();
+      console.log(data);
+    },
+    onError: (error) => {
+      console.log(error);
+    },
+  });
+
   const utils = trpc.useContext();
 
   const onSubmit = async (data: z.infer<typeof forSchema>) => {
@@ -98,7 +108,16 @@ function AddModule() {
       practicalHours,
     } = data;
 
-    console.log(data);
+    createModule({
+      name,
+      code,
+      contentWriter,
+      copyEditor,
+      faculty,
+      lecturerHours,
+      tutorialHours,
+      practicalHours,
+    });
   };
 
   return (
