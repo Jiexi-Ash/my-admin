@@ -30,3 +30,26 @@ model Lecturer {
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 }
+
+model Module {
+  id             String   @id @default(uuid())
+  name           String
+  code           String
+  contentWriter  String
+  copyEditor     String
+  lecturerHours  Int
+  tutorialHours  Int
+  practicalHours Int
+  createdAt      DateTime @default(now())
+  updatedAt      DateTime @updatedAt
+  Faculty        Faculty? @relation(fields: [facultyId], references: [id])
+  facultyId      String?
+}
+
+model Faculty {
+  id        String   @id @default(uuid())
+  name      String
+  modules   Module[]
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
